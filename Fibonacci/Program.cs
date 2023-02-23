@@ -14,7 +14,7 @@ namespace Fibonacci
             Console.WriteLine(Fibonacci(nthNumber, fibList));
         }
 
-        static int Fibonacci(int nthNumber, List<int> fibonacciList)
+        static long Fibonacci(int nthNumber, List<long> fibonacciList)
         {
             if (nthNumber <= 1)
                 return nthNumber;
@@ -22,9 +22,9 @@ namespace Fibonacci
             return fibonacciList[nthNumber];
         }
 
-        static List<int> FibonacciList(int nthNumber)
+        static List<long> FibonacciList(int nthNumber)
         {
-            var output = new List<int>();
+            var output = new List<long>();
             output.Add(0);
             output.Add(1);
 

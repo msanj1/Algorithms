@@ -20,6 +20,8 @@ namespace FibonacciLastDigit
             return fibList[nthNumber % 60] % 10;
         }
 
+        //https://www.geeksforgeeks.org/program-find-last-digit-nth-fibonnaci-number/
+
         static List<long> FibonacciFirst60()
         {
             var output = new List<long>();

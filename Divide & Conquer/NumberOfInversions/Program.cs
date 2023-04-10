@@ -10,30 +10,39 @@ namespace NumberOfInversions
         {
             var numberOfInput = int.Parse(Console.ReadLine());
             var input = Console.ReadLine().Split(' ').Select(x => long.Parse(x)).ToList();
-            MergeSort(input, 0, input.Count - 1);
+            var inversionCount = MergeSort(input, 0, input.Count - 1);
 
-            Console.WriteLine(string.Join(" ", input));
+            Console.WriteLine(inversionCount);
         }
 
-        static void MergeSort(List<long> input, int left, int right)
+        static int MergeSort(List<long> input, int left, int right, int investionCount = 0)
         {
             if (left >= right)
             {
-                return;
+                return investionCount;
             }
 
             var mid = left + (int)Math.Floor((right - left) / 2.0);
 
-            MergeSort(input, left, mid);
-            MergeSort(input, mid+1, right);
-            Merge(input, left, mid, right);
+            investionCount = MergeSort(input, left, mid, investionCount);
+            investionCount = MergeSort(input, mid+1, right, investionCount);
+            return Merge(input, left, mid, right, investionCount);
         }
 
-        static void Merge(List<long> input, int left, int mid, int right)
+        static int Merge(List<long> input, int left, int mid, int right, int inversionCount)
         {
             var temp = new List<long>();
             int i = left;
             int j = mid + 1;
+
+            for (int d = left; d <= mid; d++)
+            {
+                var closest = BinarySearch(input, input[d], j, right);
+                if (closest != -1)
+                {
+                    inversionCount += 1 + (closest - j);
+                }
+            }
 
             while (i <= mid && j <= right)
             {
@@ -65,6 +74,31 @@ namespace NumberOfInversions
                 input[left] = temp[c];
                 left++;
             }
+
+            return inversionCount;
+        }
+
+        static int BinarySearch(List<long> input, long value, int left, int right)
+        {
+            var output = -1;
+
+            while (left <= right)
+            {
+                var mid = left + (int)Math.Floor((right - left) / 2.0);
+
+                if (value > input[mid])
+                {
+                    output = mid;
+                    left = mid + 1;
+                }
+                else
+                {
+                
+                    right = mid - 1;
+                }
+            }
+
+            return output;
         }
     }
 }

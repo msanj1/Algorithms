@@ -15,7 +15,6 @@ namespace ThreePartition
 
         static bool Partition(List<int> inputs)
         {
-            //inputs = inputs.OrderBy(x => x).ToList();
             var sum = inputs.Sum();
             if(inputs.Count < 3 || sum % 3 != 0)
                 return false;
